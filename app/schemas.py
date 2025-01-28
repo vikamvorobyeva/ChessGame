@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
+
+
 
 class UserCreate(BaseModel):
     user_name: str  # Имя пользователя
@@ -25,3 +28,22 @@ class UserResponse(BaseModel):
     class Config:
         orm_mode = True  # Позволяет работать с SQLAlchemy объектами
 
+
+# Схема для создания комнаты
+class RoomCreate(BaseModel):
+    is_chess: bool
+    color: str
+    room_password: Optional[str] = None
+    class Config:
+        orm_mode = True  # Позволяет работать с SQLAlchemy объектами
+
+# Схема для отображения комнаты
+
+class RoomResponse(BaseModel):
+    id: int
+    is_chess: bool
+    color: str
+    room_code: str
+
+    class Config:
+        orm_mode = True  # Позволяет работать с SQLAlchemy объектами
