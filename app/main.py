@@ -1,12 +1,14 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import models, auth
+from . import models, auth, schemas
 from .database import engine, Base, get_db
 import uvicorn
 from datetime import datetime
 import uuid
 from datetime import datetime
-from .schemas import UserCreate
+
+from .schemas import UserCreate, RoomCreate, RoomResponse
+
 
 
 # Создание таблиц в базе данных
@@ -91,6 +93,39 @@ def get_user_by_id(user_id: str, db: Session = Depends(get_db)):
     }
 
 
+
+@app.get("/rooms/", response_model=dict)
+def get_rooms(db: Session = Depends(get_db)):
+    chess_rooms = db.query(models.Rooms).filter(models.Rooms.is_chess == True).all()
+    draughts_rooms = db.query(models.Rooms).filter(models.Rooms.is_chess == False).all()
+    return {
+        "chess": chess_rooms,
+        "draughts": draughts_rooms
+    }
+
+
+@app.post("/rooms/create/", response_model=schemas.RoomResponse)
+def create_room(room: schemas.RoomCreate, db: Session = Depends(get_db)):
+    room_code = str(uuid.uuid4())[:8]  # Генерируем уникальный код комнаты
+    new_room = models.Rooms(
+        is_chess=room.is_chess,
+        color=room.color,
+        room_code=room_code
+    )
+    db.add(new_room)
+    db.commit()
+    db.refresh(new_room)
+    return new_room
+
+
+
+
+@app.post("/rooms/join/")
+def join_room(room_code: str, room_password: str, db: Session = Depends(get_db)):
+    room = db.query(models.Rooms).filter(models.Rooms.room_code == room_code).first()
+    if not room or (room.room_password and room.room_password != room_password):
+        raise HTTPException(status_code=400, detail="Invalid room code or password")
+    return {"message": "Successfully joined the room"}
 
 
 # Запуск приложения
