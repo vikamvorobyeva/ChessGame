@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
+from datetime import datetime
 from .database import Base
 
 class User(Base):
@@ -24,3 +25,11 @@ class Rooms(Base):
     room_code = Column(String, unique=True, nullable=False)  # Уникальный код комнаты
     room_password = Column(String, nullable=True)  # Пароль комнаты (может быть NULL)
 
+
+#
+# class GameSession(Base):
+#     __tablename__ = "game_sessions"
+#
+#     id = Column(Integer, primary_key=True, index=True)
+#     moves = Column(Text, default="")  # Здесь будут храниться ходы (например, PGN или просто последовательность ходов)
+#     created_at = Column(DateTime, default=datetime.utcnow)
