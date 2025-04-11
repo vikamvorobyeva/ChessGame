@@ -47,3 +47,19 @@ class RoomResponse(BaseModel):
 
     class Config:
         orm_mode = True  # Позволяет работать с SQLAlchemy объектами
+
+
+
+#
+# class GameSessionCreate(BaseModel):
+#     # Нет полей, просто создаем новую игровую сессию
+#     class Config:
+#         orm_mode = True
+#
+# class GameSessionResponse(BaseModel):
+#     id: int
+#     moves: str
+#     created_at: datetime
+#
+#     class Config:
+#         orm_mode = True
