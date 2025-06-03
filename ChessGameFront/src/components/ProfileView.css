@@ -1,0 +1,61 @@
+.profile-container {
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #4CAF50;
+  margin-bottom: 1.5rem;
+}
+
+.profile-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+}
+
+.profile-title i {
+  margin-right: 0.5rem;
+  font-size: 2rem;
+}
+
+.profile-stats {
+  text-align: left;
+  margin-top: 1.5rem;
+}
+
+.profile-stats p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.online {
+  background-color: #4CAF50;
+}
+
+.offline {
+  background-color: #f44336;
+}

@@ -1,0 +1,26 @@
+import csv
+import json
+
+# Файл после распаковки
+csv_file = "lichess_puzzles.csv"
+json_file = "puzzles.json"
+
+puzzles = []
+
+with open(csv_file, encoding="utf-8") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        if len(row) < 3:
+            continue
+        puzzle = {
+            "id": row[0],
+            "fen": row[1],
+            "solution": row[2].split(),
+            "rating": int(row[3]),
+            "themes": row[7] if len(row) > 7 else "",
+            "link": row[8] if len(row) > 8 else ""
+        }
+        puzzles.append(puzzle)
+
+with open(json_file, "w", encoding="utf-8") as f:
+    json.dump(puzzles, f, indent=2, ensure_ascii=False)
