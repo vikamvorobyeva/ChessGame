@@ -1,0 +1,8 @@
+.idea/
+.venv
+.DS_Store
+lichess_db_puzzle.csv.bz2
+ChessGameFront.zip
+__pycache__/
+node_modules/
+
